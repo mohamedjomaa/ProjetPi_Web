@@ -55,16 +55,22 @@
             </div>
 
             <ul class="nav">
-                <li class="active">
+                <li >
                     <a href="dashboard.html">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li>
-                    <a href="user.html">
+                <li class="active">
+                    <a href="{{ path('user_index') }}">
                         <i class="pe-7s-user"></i>
                         <p>User Profile</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('reclamation_index') }}">
+                        <i class="pe-7s-attention"></i>
+                        <p>Reclamation</p>
                     </a>
                 </li>
                 <li>

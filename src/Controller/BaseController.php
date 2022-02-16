@@ -13,7 +13,7 @@ class BaseController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('base_FRONT.html.twig', [
+        return $this->render('reclamation/index_front.html.twig', [
             'controller_name' => 'BaseController',
         ]);
     }

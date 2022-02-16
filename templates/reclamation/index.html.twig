@@ -1,0 +1,49 @@
+{% extends "reclamation/base_back_reclamation.html.twig" %}
+{% block back_content %}
+    <h1>Reclamation </h1>
+
+    <table class="table">
+        <thead>
+
+            <tr>
+                <th>Id</th>
+                <th>Prenom</th>
+                <th>nom</th>
+                <th>type_de_reclamation</th>
+                <th>description_de_reclamation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+                <td>{{ reclamation.id }}</td>
+                <td>{{ reclamation.prenom }}</td>
+                <td>{{ reclamation.nom }}</td>
+                <td>{{ reclamation.type }}</td>
+                <td>{{ reclamation.description }}</td>
+
+                <td>
+                  <!-- <a href="{{ path('reclamation_show', {'id': reclamation.id}) }}">show</a> -->
+                   <!--   <a href="{{ path('reclamation_edit', {'id': reclamation.id}) }}">edit</a> -->
+                    <form method="post" action="{{ path('reclamation_edit', {'id': reclamation.id}) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('Edit' ~ reclamation.id) }}">
+                        <button class="btn">Edit</button>
+                    </form>
+                    {{ include('reclamation/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('reclamation_new') }}">Create new</a>
+{% endblock %}
+
+{% block back_footer %}
+
+{% endblock %}
