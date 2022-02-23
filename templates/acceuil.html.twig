@@ -1,0 +1,37 @@
+{% extends 'base_FRONT.html.twig' %}
+
+{% block title %}Formations index{% endblock %}
+
+{% block back_content %}
+    <h1>Formations index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom_formation</th>
+            <th>image</th>
+            <th>description</th>
+            <th>datedebut</th>
+            <th>datefin</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for formation in formmattion %}
+            <tr>
+                <td>{{ formation.id }}</td>
+                <td>{{ formation.nom }}</td>
+                <td>  <img src="{{ asset('uploads/') ~formation.image }}" alt="logo_esprit" width="100px" height="100px">  </td>
+                <td>{{ formation.description }}</td>
+                <td>{{ formation.datede}}</td>
+                <td>{{ formation.datefi }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
