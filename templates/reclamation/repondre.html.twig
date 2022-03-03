@@ -1,6 +1,6 @@
-{% extends "reclamation/base_back_reclamation.html.twig" %}
+{% extends "reclamation/base_front_reclamation.html.twig" %}
 
-{% block back_content %}
+{% block textbanner %}
     <a href="{{ path('reclamation_index') }}">back to list</a>
     <h1>Edit Reclamation</h1>
 
@@ -10,10 +10,14 @@
 
 
 
+{% endblock %}
+
+{% block all %}
+
 
 
 {% endblock %}
 
-{% block back_footer %}
 
-{% endblock %}
+
+{% block ads %} {% endblock %}

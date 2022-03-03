@@ -1,0 +1,8 @@
+# config/yamilovs_sms.yaml
+yamilovs_sms:
+  providers:
+    message_bird_provider_doc: ayedboukadida
+      message_bird:
+        access_key: '1234567890abcdefg'
+        originator: 'your_sample_originator'
+        type: sms

@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\ReclamationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ReclamationRepository::class)
@@ -17,42 +20,44 @@ class Reclamation
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le Champ nom est obligatoire")
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le Champ nom est obligatoire")
+     * @Assert\Length(
+     *     min=5,
+     *     max=50,
+     *     minMessage="Le type doit contenir au moins 5 carcatères ",
+     *     maxMessage="Le type doit contenir au plus 20 carcatères"
+     * )
      */
     private $Description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=NotificationReclamation::class, inversedBy="reclamations",cascade={"all"})
      */
-    private $nom;
+    private $Notification;
+
+
+
+
+    public function __construct()
+    {
+        $this->etat = new ArrayCollection();
+        $this->message = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
 
     public function getType(): ?string
     {
@@ -78,15 +83,17 @@ class Reclamation
         return $this;
     }
 
-    public function getNom(): ?string
+    public function getNotification(): ?NotificationReclamation
     {
-        return $this->nom;
+        return $this->Notification;
     }
 
-    public function setNom(string $nom): self
+    public function setNotification(?NotificationReclamation $Notification): self
     {
-        $this->nom = $nom;
+        $this->Notification = $Notification;
 
         return $this;
     }
+
+
 }

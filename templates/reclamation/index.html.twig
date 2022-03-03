@@ -6,42 +6,77 @@
         <thead>
 
             <tr>
+
                 <th>Id</th>
                 <th>Prenom</th>
-                <th>nom</th>
-                <th>type_de_reclamation</th>
-                <th>description_de_reclamation</th>
+                <th>Nom</th>
+                <th>Type_de_reclamation</th>
+                <th>Description_de_reclamation</th>
+                <th>Etat</th>
+                <th>Message</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for reclamation in reclamations %}
-            <tr>
-                <td>{{ reclamation.id }}</td>
-                <td>{{ reclamation.prenom }}</td>
-                <td>{{ reclamation.nom }}</td>
+            <tr >
+                {% if reclamation.Notification.etat == "en cours de traitement" %}
+                {% set foo = 'red' %}
+                    {% else %}
+                {%  set foo ='green'  %}
+
+                {% endif %}
+                <td >{{ reclamation.id }}</td>
+                <td>prenom </td>
+                <td>nom</td>
                 <td>{{ reclamation.type }}</td>
                 <td>{{ reclamation.description }}</td>
 
-                <td>
-                  <!-- <a href="{{ path('reclamation_show', {'id': reclamation.id}) }}">show</a> -->
-                   <!--   <a href="{{ path('reclamation_edit', {'id': reclamation.id}) }}">edit</a> -->
-                    <form method="post" action="{{ path('reclamation_edit', {'id': reclamation.id}) }}">
-                        <input type="hidden" name="_token" value="{{ csrf_token('Edit' ~ reclamation.id) }}">
-                        <button class="btn">Edit</button>
+                <td style="color: {{ foo }}">{{ reclamation.Notification.etat}}</td>
+                <td>{{ reclamation.Notification.message}}</td>
+
+
+                <td >
+
+                    <form method="post" action="{{ path('notification_reclamation_edit', {'id': reclamation.Notification.id}) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('Edit' ~ reclamation.Notification.id) }}">
+                        <button class="btn">Repondre</button>
                     </form>
                     {{ include('reclamation/_delete_form.html.twig') }}
+
                 </td>
             </tr>
         {% else %}
             <tr>
                 <td colspan="3">no records found</td>
             </tr>
+
         {% endfor %}
         </tbody>
     </table>
 
+
+
+    {{ knp_pagination_render(pagination) }}
+
     <a href="{{ path('reclamation_new') }}">Create new</a>
+
+    {% block body %}
+        <div id="calendar-holder"></div>
+    {% endblock %}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.css">
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.1.0/main.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.js"></script>
+    {% endblock %}
+
 {% endblock %}
 
 {% block back_footer %}
