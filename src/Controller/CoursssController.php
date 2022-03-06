@@ -5,17 +5,45 @@ namespace App\Controller;
 use App\Entity\Coursss;
 use App\Form\CoursssType;
 use App\Repository\CoursssRepository;
+use App\Repository\FormmattionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+
 /**
  * @Route("/coursss")
  */
 class CoursssController extends AbstractController
 {
+    /**
+     * @Route("/stat", name="stat_app")
+     */
+    public function stat(CoursssRepository $repo): Response
+    {
+        $categorys=$repo->findAll();
+
+        $label=[];
+        $count=[];
+        foreach($categorys as $category ){
+            $label[]=$category->getNom();
+            $count[]=count((array)$category->getFormations());
+
+        }
+        return $this->render('coursss/stat.html.twig', [
+            'label'=>json_encode($label),
+            'count'=>json_encode($count),
+        ]);
+    }
+
+
+
+
+
+
     /**
      * @Route("/affichage_cours_front", name="affichage_cours_front", methods={"GET"})
      */

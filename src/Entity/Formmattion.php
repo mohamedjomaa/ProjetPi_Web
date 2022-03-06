@@ -6,6 +6,7 @@ use App\Repository\FormmattionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=FormmattionRepository::class)
@@ -16,6 +17,7 @@ class Formmattion
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *  @Groups("post:read")
      */
     private $id;
 
@@ -28,30 +30,35 @@ class Formmattion
      *     minMessage="Le titre doit contenir au moins 5 carcatères ",
      *     maxMessage="Le titre doit contenir au plus 20 carcatères"
      * )
+     *  @Groups("post:read")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Le Champ description est obligatoire")
+
+     *  @Groups("post:read")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Le Champ image est obligatoire")
+
+     *  @Groups("post:read")
      */
     private $image;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\NotNull(message="Le prix doît être différent de 0")
+     *  @Groups("post:read")
      */
     private $prix;
 
     /**
      *
      * @ORM\Column(type="date")
+     *  @Groups("post:read")
      */
 
     private $datede;
@@ -59,6 +66,7 @@ class Formmattion
     /**
      *
      * @ORM\Column(type="date")
+     *  @Groups("post:read")
      */
     private $datefi;
 

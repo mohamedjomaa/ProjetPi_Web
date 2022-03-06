@@ -4,6 +4,9 @@
 
 {% block back_content %}
     <h1>Formation index</h1>
+    {{ form_start(form)}}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
 
     <table class="table">
         <thead>
@@ -19,18 +22,19 @@
             </tr>
         </thead>
         <tbody>
-        {% for formmattion in formmattion %}
+        {% for formmattions in formmattion%}
             <tr>
-                <td>{{ formmattion.id }}</td>
-                <td>{{ formmattion.nom }}</td>
-                <td>{{ formmattion.description }}</td>
-                <td>{{ formmattion.image }}</td>
-                <td>{{ formmattion.prix }}</td>
-                <td>{{ formmattion.datede ? formmattion.datede|date('Y-m-d') : '' }}</td>
-                <td>{{ formmattion.datefi ? formmattion.datefi|date('Y-m-d') : '' }}</td>
+                <td>{{ formmattions.id }}</td>
+                <td>{{ formmattions.nom }}</td>
+                <td>{{ formmattions.description }}</td>
+                <td><img src="{{ asset('uploads/') ~formmattions.image}}" alt="" class="img-fluid"></td>
+                <td>{{ formmattions.prix }}</td>
+                <td>{{ formmattions.datede ? formmattions.datede|date('Y-m-d') : '' }}</td>
+                <td>{{ formmattions.datefi ? formmattions.datefi|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('formmattion_show', {'id': formmattion.id}) }}">show</a>
-                    <a href="{{ path('formmattion_edit', {'id': formmattion.id}) }}">edit</a>
+                    <a href="{{ path('formmattion_show', {'id': formmattions.id}) }}">show</a>
+                    <a href="{{ path('formmattion_edit', {'id': formmattions.id}) }}">edit</a>
+                    <a href="{{ path('formmattion_list', {'id': formmattions.id}) }}) }}">Imprimmer</a>
                 </td>
             </tr>
         {% else %}
@@ -40,6 +44,10 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="navigation">
+        {{ knp_pagination_render(formmattion   ) }}
+    </div>
 
     <a href="{{ path('formmattion_new') }}">Create new</a>
+
 {% endblock %}

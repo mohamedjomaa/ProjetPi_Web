@@ -47,4 +47,44 @@ class FormmattionRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function search($term,$description) {
+        if($term !==null && $description==null){
+       return $this->createQueryBuilder('Formmattion')
+            ->andWhere('Formmattion.nom LIKE :nomm')
+            ->setParameter('nomm', '%'.$term.'%')
+            ->getQuery()
+            ->getResult();
+
+        }
+        elseif ($term ==null && $description!==null){
+            return $this->createQueryBuilder('Formmattion')
+
+                ->andWhere('Formmattion.description LIKE :description')
+                ->setParameter('description', '%'.$description.'%')
+
+                ->getQuery()
+                ->getResult();
+
+
+
+        }else{
+            return $this->createQueryBuilder('Formmattion')
+                ->andWhere('Formmattion.nom LIKE :nomm')
+                ->andWhere('Formmattion.description LIKE :description')
+                ->setParameter('description', '%'.$description.'%')
+                ->setParameter('nomm', '%'.$term.'%')
+                ->getQuery()
+                ->getResult();
+
+
+        }
+    }
+    public function orderByPrix()
+    {
+        return $this->createQueryBuilder('Formmattion')
+            ->orderBy('Formmattion.prix', 'ASC')
+            ->getQuery()->getResult();
+    }
+
+
 }

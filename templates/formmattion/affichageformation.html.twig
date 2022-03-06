@@ -53,6 +53,8 @@
             <th>description</th>
             <th>datedebut</th>
             <th>datefin</th>
+            <th>Prix</th>
+
         </tr>
         </thead>
         <tbody>
@@ -62,8 +64,10 @@
                 <td>  <img src="{{ asset('uploads/') ~formation.image }}" alt="logo_esprit" width="100px" height="100px">  </td>
                 <td>{{ formation.description }}</td>
 
+
                 <td>{{ formation.datede|date('Y-m-d') }}</td>
                 <td>{{ formation.datede|date('Y-m-d')  }}</td>
+                <td>{{ formation.prix }}</td>
             </tr>
         {% else %}
             <tr>
@@ -72,5 +76,5 @@
         {% endfor %}
         </tbody>
     </table>
-
+    <a href="{{ path('formmattion_list') }}">Imprimmer</a>
 {% endblock %}

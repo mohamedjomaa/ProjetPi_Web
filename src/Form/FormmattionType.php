@@ -6,7 +6,7 @@ use App\Entity\Formmattion;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 class FormmattionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -18,6 +18,14 @@ class FormmattionType extends AbstractType
             ->add('prix')
             ->add('datede')
             ->add('datefi')
+
+            ->add('image',FileType::class,['mapped' => false,
+                'attr' => array('accept' => 'image/jpeg,image/png')])
+
+
+
+
+
         ;
     }
 
